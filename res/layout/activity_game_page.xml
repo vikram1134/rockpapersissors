@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <ImageView
+        android:id="@+id/microphone"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/microphone" />
+
+    <ImageView
+        android:id="@+id/paper"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignTop="@+id/rock"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/paper" />
+
+    <ImageView
+        android:id="@+id/sissors"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/paper"
+        android:layout_marginLeft="30dp"
+        android:src="@drawable/scissors" />
+
+    <ImageView
+        android:id="@+id/rock"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/microphone"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="52dp"
+        android:src="@drawable/rock" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Click on the microphone to speak your choice! or select the image for your choice!"
+         />
+
+</RelativeLayout>
