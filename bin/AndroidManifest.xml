@@ -25,6 +25,11 @@
             android:name="com.red.hot.mobile.peppers.rockpapersissors.InstructionActivity"
             android:label="@string/app_name" >
         </activity>
+                 <activity
+            android:name="com.red.hot.mobile.peppers.rockpapersissors.GameActivity"
+            android:label="@string/app_name" >
+        </activity>
+         
           <activity
             android:name="com.red.hot.mobile.peppers.rockpapersissors.Splash"
             android:label="@string/app_name" >

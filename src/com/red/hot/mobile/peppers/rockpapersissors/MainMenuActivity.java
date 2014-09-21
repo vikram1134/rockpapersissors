@@ -9,6 +9,7 @@ import android.widget.Button;
 
 public class MainMenuActivity extends Activity implements OnClickListener{
 	private Button Instructions;
+	private Button Newgame;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -19,11 +20,14 @@ public class MainMenuActivity extends Activity implements OnClickListener{
 
 	private void initlisteners() {
 	Instructions.setOnClickListener(this);
+	Newgame.setOnClickListener(this);
 	}
 
 	private void initview() {
 		
 		Instructions=(Button)findViewById(R.id.instructions);
+		Newgame=(Button)findViewById(R.id.newgame);
+
 	}
 
 	@Override
@@ -34,6 +38,13 @@ public class MainMenuActivity extends Activity implements OnClickListener{
 			startActivity(intent);
 			
 		}
+		if(v.getId()==R.id.newgame)
+		{
+			Intent intent1=new Intent(MainMenuActivity.this,GameActivity.class);
+			startActivity(intent1);
+			
+		}
+
 		
 	}
 	
