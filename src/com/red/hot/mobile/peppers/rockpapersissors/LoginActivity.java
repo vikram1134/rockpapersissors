@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.SQLException;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,7 +29,9 @@ public class LoginActivity extends Activity implements OnClickListener, OnFocusC
 	private EditText age;
 	private RadioGroup radioGroup;
 	private Button login;
-	
+	DBHelper mydb = null;
+	DBAdapter dbAdapter;
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,9 @@ public class LoginActivity extends Activity implements OnClickListener, OnFocusC
 		setContentView(R.layout.activity_login);
 		initviews();
 		initListeners();
+		dbAdapter = new DBAdapter(this);
+		dbAdapter.open();
+
 	}
 
 	private void initListeners() {
@@ -65,11 +71,60 @@ public class LoginActivity extends Activity implements OnClickListener, OnFocusC
 		{
 		String name=uname.getText().toString();
 		String ageString=age.getText().toString();
+//		int checked = radioGroup.getCheckedRadioButtonId();
+		String radiovalue=  ((RadioButton)this.findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString();  
+
+		System.out.println(name+" "+ageString+" "+radiovalue);
 		checkInput(name,ageString);
-		Intent intent=new Intent(LoginActivity.this,MainMenuActivity.class);
-		startActivity(intent);
-		finish();
-		}else
+		
+		if (name.length() > 5) {
+			try {
+
+				if (dbAdapter.Login(name, radiovalue,ageString)) {
+					Toast.makeText(LoginActivity.this,
+							"Successfully Logged In", Toast.LENGTH_LONG)
+							.show();
+					Intent intent=new Intent(LoginActivity.this,MainMenuActivity.class);
+					startActivity(intent);
+					finish();
+
+				} 
+				else if (dbAdapter.checkUser(name))
+				{
+					Toast.makeText(LoginActivity.this,
+							"Username Already exists", Toast.LENGTH_LONG)
+							.show();
+
+				}
+				else {
+					try {
+
+						long i = dbAdapter.register(name, radiovalue,ageString,0,0);
+						if(i != -1)
+							Toast.makeText(LoginActivity.this, "You have successfully registered",Toast.LENGTH_LONG).show();
+						Intent intent=new Intent(LoginActivity.this,MainMenuActivity.class);
+						startActivity(intent);
+						finish();
+
+					} catch (SQLException e) {
+						Toast.makeText(LoginActivity.this, "Some problem occurred",
+								Toast.LENGTH_LONG).show();
+
+					}
+				}
+
+			} catch (Exception e) {
+				Toast.makeText(LoginActivity.this, "Some problem occurred",
+						Toast.LENGTH_LONG).show();
+
+			}
+		} else {
+			Toast.makeText(LoginActivity.this,
+					"Username has to be atleast 6 characters", Toast.LENGTH_LONG).show();
+		}
+
+		
+				}else
 		{showDialog();
 		}
 	
