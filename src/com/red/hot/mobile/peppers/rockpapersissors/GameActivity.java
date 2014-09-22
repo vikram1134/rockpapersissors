@@ -102,7 +102,7 @@ public class GameActivity extends Activity implements OnClickListener{
 	
 	private void computeresult(int userChoice) {
 		String computerGeneratedString;
-		int computerSelection=(int)(Math.random() * 2);
+		int computerSelection=(int)(Math.random() * 3);
 		
 		if(computerSelection==0)
 			computerGeneratedString="Rock";
@@ -112,6 +112,8 @@ public class GameActivity extends Activity implements OnClickListener{
 			computerGeneratedString="Sissors";
 		
 		Toast.makeText(this, "Computer's Turn - "+computerGeneratedString,Toast.LENGTH_LONG).show(); 
+		
+		System.out.println(computerGeneratedString);
 		
 		if(userChoice==computerSelection)
 		{
