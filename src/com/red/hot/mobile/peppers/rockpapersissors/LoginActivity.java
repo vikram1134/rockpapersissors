@@ -25,7 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity implements OnClickListener, OnFocusChangeListener{
-	private EditText uname;
+	private static EditText uname;
 	private EditText age;
 	private RadioGroup radioGroup;
 	private Button login;
@@ -60,6 +60,7 @@ public class LoginActivity extends Activity implements OnClickListener, OnFocusC
 		
 	}
 
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		return true;
@@ -81,10 +82,12 @@ public class LoginActivity extends Activity implements OnClickListener, OnFocusC
 			try {
 
 				if (dbAdapter.Login(name, radiovalue,ageString)) {
+				//	dbAdapter.winsUpdate(name);
 					Toast.makeText(LoginActivity.this,
 							"Successfully Logged In", Toast.LENGTH_LONG)
 							.show();
 					Intent intent=new Intent(LoginActivity.this,MainMenuActivity.class);
+					intent.putExtra("username",name);
 					startActivity(intent);
 					finish();
 
@@ -141,6 +144,11 @@ public class LoginActivity extends Activity implements OnClickListener, OnFocusC
 		}
 		
 	}
+
+    public static String getVariable()
+    {
+		return uname.getText().toString();
+    }
 
 	private void showDialog()
 	{

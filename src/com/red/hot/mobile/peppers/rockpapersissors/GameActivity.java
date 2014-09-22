@@ -5,6 +5,8 @@ import java.util.Locale;
 
 
 
+
+
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -21,13 +23,18 @@ public class GameActivity extends Activity implements OnClickListener{
 	private ImageView rock ;
 	private ImageView paper ;
 	private ImageView sissors ;
-	
+	private String username;
+	DBAdapter dbAdapter;
+
 	 private final int REQ_CODE_SPEECH_INPUT = 100;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game_page);
+		dbAdapter = new DBAdapter(this);
+		dbAdapter.open();
 		initview();
 		initlistener();
+
 	}
 	private void initlistener() {
 	micro.setOnClickListener(this);	
@@ -41,6 +48,7 @@ public class GameActivity extends Activity implements OnClickListener{
 	rock=(ImageView)findViewById(R.id.rock);
 	paper=(ImageView)findViewById(R.id.paper);
 	sissors=(ImageView)findViewById(R.id.sissors);
+	username = LoginActivity.getVariable();
 	}
 	private void StartSpeach() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -124,9 +132,14 @@ public class GameActivity extends Activity implements OnClickListener{
 				(userChoice==1&&computerSelection==0))
 		{
 			Toast.makeText(this, "you win",Toast.LENGTH_LONG).show();
+			dbAdapter.winsUpdate(username);
+
 		}
 		else
+		{
 			Toast.makeText(this, "you lose",Toast.LENGTH_LONG).show();
+			dbAdapter.lossUpdate(username);
+		}
 	}
 	
 	@Override
@@ -138,6 +151,10 @@ public class GameActivity extends Activity implements OnClickListener{
 		else if(v.getId()==R.id.rock)
 		{
 			computeresult(0);
+//			String i = LoginActivity.getVariable();
+//			dbAdapter.winsUpdate(i);
+//		Toast.makeText(this, "Name - "+i,Toast.LENGTH_LONG).show(); 
+
 		}else if(v.getId()==R.id.paper)
 		{
 			computeresult(1);

@@ -76,4 +76,52 @@ public class DBAdapter
         }
      return false;
     }
+	
+	
+	public long winsUpdate(String user)
+	{
+    	Cursor mCursor = mDb.rawQuery("SELECT * FROM " + DATABASE_TABLE + " WHERE username=?", new String[]{user});
+        mCursor.moveToFirst();
+    	
+    	int newwins = mCursor.getInt(3)+1;
+    	System.out.println("new wins "+newwins);
+    	 ContentValues data=new ContentValues();
+    	 data.put("wins",newwins);
+      	
+    	return mDb.update(DATABASE_TABLE, data,KEY_USERNAME +" = ?", new String[] {user});
+    	
+    	}
+	
+	public long lossUpdate(String user)
+	{
+    	Cursor mCursor = mDb.rawQuery("SELECT * FROM " + DATABASE_TABLE + " WHERE username=?", new String[]{user});
+        mCursor.moveToFirst();
+    	
+    	int newloss = mCursor.getInt(4)+1;
+    	System.out.println("new loss "+newloss);
+
+    	 ContentValues data=new ContentValues();
+    	 data.put("losses",newloss);
+      	
+    	return mDb.update(DATABASE_TABLE, data,KEY_USERNAME +" = ?", new String[] {user});
+
+    	}
+	
+	public int getWins(String user)
+	{
+    	Cursor mCursor = mDb.rawQuery("SELECT * FROM " + DATABASE_TABLE + " WHERE username=?", new String[]{user});
+        mCursor.moveToFirst();
+    	int wins = mCursor.getInt(3);
+   		return wins;
+	}
+	
+	public int getLoss(String user)
+	{
+    	Cursor mCursor = mDb.rawQuery("SELECT * FROM " + DATABASE_TABLE + " WHERE username=?", new String[]{user});
+        mCursor.moveToFirst();
+    	int loss = mCursor.getInt(4);
+   		return loss;
+	}
+
+
 }
