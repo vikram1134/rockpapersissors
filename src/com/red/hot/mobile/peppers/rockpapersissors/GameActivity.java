@@ -10,6 +10,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -99,16 +100,33 @@ public class GameActivity extends Activity implements OnClickListener{
     }
 	
 	
-	private void computeresult(int choice) {
-		if(choice==1)
+	private void computeresult(int userChoice) {
+		String computerGeneratedString;
+		int computerSelection=(int)(Math.random() * 2);
+		
+		if(computerSelection==0)
+			computerGeneratedString="Rock";
+		else if(computerSelection==1)
+			computerGeneratedString="Paper";
+		else
+			computerGeneratedString="Sissors";
+		
+		Toast.makeText(this, "Computer's Turn - "+computerGeneratedString,Toast.LENGTH_LONG).show(); 
+		
+		if(userChoice==computerSelection)
+		{
+			Toast.makeText(this, "Game tied",Toast.LENGTH_LONG).show();
+		}
+		else if((userChoice==0&&computerSelection==2)||
+				(userChoice==2&&computerSelection==1)||
+				(userChoice==1&&computerSelection==0))
 		{
 			Toast.makeText(this, "you win",Toast.LENGTH_LONG).show();
 		}
 		else
-		{
 			Toast.makeText(this, "you lose",Toast.LENGTH_LONG).show();
-		}
 	}
+	
 	@Override
 	public void onClick(View v) {
 		if(v.getId()==R.id.microphone)
