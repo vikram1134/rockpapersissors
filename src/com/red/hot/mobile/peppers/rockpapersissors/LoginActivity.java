@@ -1,6 +1,8 @@
 package com.red.hot.mobile.peppers.rockpapersissors;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import org.joda.time.LocalDate;
 import org.joda.time.Years;
@@ -16,17 +18,19 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity implements OnClickListener, OnFocusChangeListener{
 	private static EditText uname;
-	private EditText age;
+	private Spinner age;
 	private RadioGroup radioGroup;
 	private Button login;
 	DBHelper mydb = null;
@@ -38,6 +42,7 @@ public class LoginActivity extends Activity implements OnClickListener, OnFocusC
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		initviews();
+	
 		initListeners();
 		dbAdapter = new DBAdapter(this);
 		dbAdapter.open();
@@ -47,19 +52,31 @@ public class LoginActivity extends Activity implements OnClickListener, OnFocusC
 	private void initListeners() {
 		// TODO Auto-generated method stub
 		login.setOnClickListener(this);
-		age.setOnClickListener(this);
-		age.setOnFocusChangeListener(this);
+//		age.setOnClickListener(this);
+//		age.setOnFocusChangeListener(this);
 		
 	}
 
 	private void initviews() {
 		uname=(EditText)findViewById(R.id.username);
-		age=(EditText)findViewById(R.id.age);
+		age=(Spinner)findViewById(R.id.age);
 		radioGroup=(RadioGroup)findViewById(R.id.gender_group);
 		login=(Button)findViewById(R.id.login);
-		
+		addValuesToList();
 	}
 
+
+	private void addValuesToList() {
+		List<String> list = new ArrayList<String>();
+		for(int i=5;i<100;i++)
+		{
+			list.add(""+i);
+		}
+	ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+		android.R.layout.simple_spinner_item, list);
+	dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	age.setAdapter(dataAdapter);
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -71,17 +88,17 @@ public class LoginActivity extends Activity implements OnClickListener, OnFocusC
 		if(v.getId()==R.id.login)
 		{
 		String name=uname.getText().toString();
-		String ageString=age.getText().toString();
+//		String ageString=age.getText().toString();
 //		int checked = radioGroup.getCheckedRadioButtonId();
 		String radiovalue=  ((RadioButton)this.findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString();  
 
-		System.out.println(name+" "+ageString+" "+radiovalue);
-		checkInput(name,ageString);
+//		System.out.println(name+" "+ageString+" "+radiovalue);
+//		checkInput(name,ageString);
 		
 		if (name.length() > 5) {
 			try {
 
-				if (dbAdapter.Login(name, radiovalue,ageString)) {
+				if (dbAdapter.Login(name, radiovalue,String.valueOf(age.getSelectedItem()))) {
 				//	dbAdapter.winsUpdate(name);
 					Toast.makeText(LoginActivity.this,
 							"Successfully Logged In", Toast.LENGTH_LONG)
@@ -102,7 +119,7 @@ public class LoginActivity extends Activity implements OnClickListener, OnFocusC
 				else {
 					try {
 
-						long i = dbAdapter.register(name, radiovalue,ageString,0,0);
+						long i = dbAdapter.register(name, radiovalue, String.valueOf(age.getSelectedItem()),0,0);
 						if(i != -1)
 							Toast.makeText(LoginActivity.this, "You have successfully registered",Toast.LENGTH_LONG).show();
 						Intent intent=new Intent(LoginActivity.this,MainMenuActivity.class);
@@ -168,7 +185,7 @@ public class LoginActivity extends Activity implements OnClickListener, OnFocusC
 						LocalDate now = new LocalDate();
 						Years ageInyears = Years.yearsBetween(
 								bithdayDate, now);
-						age.setText(""+ageInyears.getYears());
+//						age.setText(""+ageInyears.getYears());
 		            }
 		        }, mYear, mMonth, mDay);
 		dpd.show();

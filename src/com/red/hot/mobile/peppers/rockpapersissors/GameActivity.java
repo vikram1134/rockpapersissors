@@ -109,27 +109,16 @@ public class GameActivity extends Activity implements OnClickListener{
 	
 	
 	private void computeresult(int userChoice) {
-		String computerGeneratedString;
-		int computerSelection=(int)(Math.random() * 3);
+		GameEngine gameengine= new GameEngine();
+		int result= gameengine.compareResults(userChoice, gameengine.computeSelection());
 		
-		if(computerSelection==0)
-			computerGeneratedString="Rock";
-		else if(computerSelection==1)
-			computerGeneratedString="Paper";
-		else
-			computerGeneratedString="Sissors";
+	
 		
-		Toast.makeText(this, "Computer's Turn - "+computerGeneratedString,Toast.LENGTH_LONG).show(); 
-		
-		System.out.println(computerGeneratedString);
-		
-		if(userChoice==computerSelection)
+		if(result==0)
 		{
 			Toast.makeText(this, "Game tied",Toast.LENGTH_LONG).show();
 		}
-		else if((userChoice==0&&computerSelection==2)||
-				(userChoice==2&&computerSelection==1)||
-				(userChoice==1&&computerSelection==0))
+		else if(result==1)
 		{
 			Toast.makeText(this, "you win",Toast.LENGTH_LONG).show();
 			dbAdapter.winsUpdate(username);
