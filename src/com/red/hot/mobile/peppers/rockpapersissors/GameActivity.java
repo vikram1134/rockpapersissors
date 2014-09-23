@@ -7,6 +7,7 @@ import java.util.Locale;
 
 
 
+
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class GameActivity extends Activity implements OnClickListener{
@@ -25,7 +27,9 @@ public class GameActivity extends Activity implements OnClickListener{
 	private ImageView sissors ;
 	private String username;
 	DBAdapter dbAdapter;
-
+	private TextView wins;
+	private TextView losses;
+	
 	 private final int REQ_CODE_SPEECH_INPUT = 100;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,8 +37,15 @@ public class GameActivity extends Activity implements OnClickListener{
 		dbAdapter = new DBAdapter(this);
 		dbAdapter.open();
 		initview();
+		valuetoview();
 		initlistener();
 
+	}
+	private void valuetoview() {
+		int win=dbAdapter.getWins(username);
+		int loss=dbAdapter.getLoss(username);
+		wins.setText(""+win);
+		losses.setText(""+loss);
 	}
 	private void initlistener() {
 	micro.setOnClickListener(this);	
@@ -49,6 +60,8 @@ public class GameActivity extends Activity implements OnClickListener{
 	paper=(ImageView)findViewById(R.id.paper);
 	sissors=(ImageView)findViewById(R.id.sissors);
 	username = LoginActivity.getVariable();
+	wins=(TextView)findViewById(R.id.wins);
+	losses=(TextView)findViewById(R.id.losses);
 	}
 	private void StartSpeach() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -122,12 +135,13 @@ public class GameActivity extends Activity implements OnClickListener{
 		{
 			Toast.makeText(this, "you win",Toast.LENGTH_LONG).show();
 			dbAdapter.winsUpdate(username);
-
+			wins.setText(""+dbAdapter.getWins(username));
 		}
 		else
 		{
 			Toast.makeText(this, "you lose",Toast.LENGTH_LONG).show();
 			dbAdapter.lossUpdate(username);
+			losses.setText(""+dbAdapter.getLoss(username));
 		}
 	}
 	
@@ -140,9 +154,7 @@ public class GameActivity extends Activity implements OnClickListener{
 		else if(v.getId()==R.id.rock)
 		{
 			computeresult(0);
-//			String i = LoginActivity.getVariable();
-//			dbAdapter.winsUpdate(i);
-//		Toast.makeText(this, "Name - "+i,Toast.LENGTH_LONG).show(); 
+
 
 		}else if(v.getId()==R.id.paper)
 		{

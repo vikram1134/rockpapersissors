@@ -17,6 +17,7 @@
         android:layout_marginTop="30dp"
         android:src="@drawable/images" />
 
+    
     <EditText
         android:id="@+id/username"
         android:layout_width="wrap_content"
@@ -28,27 +29,13 @@
         android:ems="10"
         android:hint="username" />
 
-    <EditText
-        android:id="@+id/age"
-        android:layout_width="wrap_content"
-        android:editable="false"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/username"
-        android:layout_alignRight="@+id/username"
-        android:layout_below="@+id/username"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="age" >
-    </EditText>
-
     <RadioGroup
         android:id="@+id/gender_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/age"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="25dp"
         android:orientation="horizontal" >
 
         <RadioButton
@@ -68,6 +55,15 @@
        
     </RadioGroup>
 
+<Spinner
+    android:id="@+id/age"
+    android:layout_marginTop="25dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignLeft="@+id/gender_group"
+    android:layout_alignRight="@+id/username"
+    android:layout_below="@+id/username" />
+
     <Button
         android:id="@+id/login"
         android:layout_width="wrap_content"
@@ -77,4 +73,17 @@
         android:layout_marginTop="28dp"
         android:text="Let me Play!" />
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_marginTop="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/age"
+        android:layout_alignParentLeft="true"
+        
+         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/username"
+        android:text="age:" />
+
+    
 </RelativeLayout>

@@ -2,7 +2,59 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
+    
+<TableLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   android:layout_alignParentTop="true"
+    android:stretchColumns="1"
+   >
+   <TableRow>
+         <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+      
+     
+        android:text="Click on the microphone to speak your choice! "
+         />
+       
+    </TableRow>
+    
+    <TableRow >
+           <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+      
+             android:text="Or select your choice!"
+         />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:text="wins"
+             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:padding="3dip" />
+        <TextView
+            android:id="@+id/wins"
+            android:text="0"
+             android:textAppearance="?android:attr/textAppearanceMedium"
+           
+            android:padding="3dip" />
+    </TableRow>
 
+    <TableRow>
+        <TextView
+            android:text="losses"
+             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:padding="3dip" />
+        <TextView
+            android:id="@+id/losses"
+            android:text="0"
+             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:padding="3dip" />
+    </TableRow>
+</TableLayout>
     <ImageView
         android:id="@+id/microphone"
         android:layout_width="60dp"
@@ -38,14 +90,6 @@
         android:layout_marginTop="52dp"
         android:src="@drawable/rock" />
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="Click on the microphone to speak your choice! or select the image for your choice!"
-         />
+   
 
 </RelativeLayout>
