@@ -104,7 +104,7 @@ public class GameActivity extends Activity implements OnClickListener{
                 		Toast.makeText(this, result.get(0),Toast.LENGTH_LONG).show();
                 		computeresult(1);
                 	}
-                	else if(result.get(0).trim().equals("sissors"))
+                	else if(result.get(0).trim().equals("scissors"))
                 	{
                 		Toast.makeText(this, result.get(0),Toast.LENGTH_LONG).show();
                 		computeresult(2);
