@@ -56,9 +56,12 @@ public class MainMenuActivity extends Activity implements OnClickListener{
 		}
 		if(v.getId()==R.id.myscore)
 		{
-			Toast.makeText(this, "wins: "+dbAdapter.getWins(username)+" loss: "+dbAdapter.getLoss(username),Toast.LENGTH_LONG).show();
-
+//			Toast.makeText(this, "wins: "+dbAdapter.getWins(username)+" loss: "+dbAdapter.getLoss(username),Toast.LENGTH_LONG).show();
+			Intent intent1=new Intent(MainMenuActivity.this,ScoreActivity.class);
+			startActivity(intent1);
+			
 		}
+		
 
 		
 	}
